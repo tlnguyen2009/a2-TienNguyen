@@ -8,11 +8,8 @@ const http = require( "http" ),
       dir  = "public/",
       port = 3000
 
-const appdata = [
-  { "model": "toyota", "year": 1999, "mpg": 23 },
-  { "model": "honda", "year": 2004, "mpg": 30 },
-  { "model": "ford", "year": 1987, "mpg": 14} 
-]
+//This array will save data as objects
+const scoreData = [];
 
 const server = http.createServer( function( request,response ) {
   if( request.method === "GET" ) {
@@ -22,30 +19,65 @@ const server = http.createServer( function( request,response ) {
   }
 })
 
+// GET method
 const handleGet = function( request, response ) {
-  const filename = dir + request.url.slice( 1 ) 
+  const filename = dir + request.url.slice( 1 ); // remove the first "/" like "/about/us" will be ""about/us"" 
 
-  if( request.url === "/" ) {
+  if( request.url === "/" ) { //for sending file
     sendFile( response, "public/index.html" )
-  }else{
+  }
+  else if (request.url === "/ranking") { //for sending data
+    response.writeHead(200, "OK", {"Content-Type": "application/json"});
+    response.end(JSON.stringify(scoreData)); //send the data array in string
+  }
+  else{
     sendFile( response, filename )
   }
 }
 
+//POST method
 const handlePost = function( request, response ) {
   let dataString = ""
 
-  request.on( "data", function( data ) {
+  request.on( "data", function( data ) { // "on" listening data coming from http
       dataString += data 
   })
 
-  request.on( "end", function() {
-    console.log( JSON.parse( dataString ) )
+  request.on( "end", function() { // "end" activate when the last chunk of data arrived
+    if (request.url === "/submit") {
+      //parse the string data into object
+      const newScoreData = JSON.parse( dataString ); //
+      // console.log( newScoreData); //testing
 
-    // ... do something with the data here!!!
+      scoreData.push({
+        name: newScoreData.yourname,
+        score: newScoreData.score,
+      });
 
-    response.writeHead( 200, "OK", {"Content-Type": "text/plain" })
-    response.end("test")
+      //sort data for ranking
+      scoreData.sort((a, b) => b.score - a.score);
+
+      console.log(scoreData)
+
+      response.writeHead( 200, "OK", {"Content-Type": "text/plain" })
+      response.end("Score submitted successfully!")
+    } 
+    else if ( request.url === "/delete" ) { //handle "delete"
+      const data = JSON.parse( dataString );
+      const nameToDelete = data.name;
+      
+      // We use the .filter() method to create a new array containing everyone EXCEPT the player whose name matches the one to delete.
+      const newData = scoreData.filter(player => player.name !== nameToDelete);
+      
+      // A safe way to update the original array is to clear it and push the new data. 
+      // https://stackoverflow.com/questions/30640771/i-want-to-replace-all-values-with-another-array-values-both-arrays-are-in-same
+      scoreData.length = 0; // Clear the original array
+      scoreData.push.apply(scoreData, newData); // Push new data back
+      
+      console.log(`Deleted ${nameToDelete}. New scoreData:`, scoreData); //for testing
+      response.writeHead( 200, "OK", {"Content-Type": "text/plain" });
+      response.end("Player deleted");
+    }
   })
 }
 
@@ -61,7 +93,8 @@ const sendFile = function( response, filename ) {
        response.writeHeader( 200, { "Content-Type": type })
        response.end( content )
 
-     }else{
+     }
+     else {
 
        // file not found, error code 404
        response.writeHeader( 404 )
@@ -71,4 +104,4 @@ const sendFile = function( response, filename ) {
    })
 }
 
-server.listen( process.env.PORT || port )
+server.listen( process.env.PORT || port );

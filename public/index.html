@@ -10,9 +10,57 @@
     <link rel="icon" href="data:;base64,iVBORw0KGgo=">
   </head>
   <body>
-    <form>
-      <input type="text" id="yourname" value="your name here">
-      <button>submit</button>
-    </form>
+    <div class="nav-bar">
+      <button class="nav-back">Back</button>
+      <button class="nav-ranking">Ranking</button>
+    </div>
+
+    <div class="first-section screen">
+      <button class="play-button">PLAY</button>
+    </div>
+    
+    <div class="game-section screen">
+      <!-- <button class="button-points">CLICK TO GET POINTS</button> -->
+      <img 
+        id="cockroach" 
+        src="./Assets/normal_coackroach.png" 
+        alt="Clickable Cockroach"
+      >
+      <div class="time-and-scores">
+        <div class="count-down">
+          <div class="decor">Time (s):</div>
+          <div class="clock decor">60</div>
+        </div>
+        <div class="score-board">
+          <div class="decor">SCORES:</div>
+          <div class="score decor">0</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="last-section screen">
+      <button class="replay-button">REPLAY</button>
+      <form>
+        <div>SCORES:</div>
+        <div class="score">0</div>
+        <input type="text" id="yourname" placeholder="type your name here">
+        <button class="save-button">Save Score</button>
+      </form>
+    </div>
+
+    <div class="ranking-section screen">
+      <h1>Score Board</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Name</th>
+            <th>Score</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="scoreboard-body"></tbody>
+      </table>
+    </div>
   </body>
 </html>
