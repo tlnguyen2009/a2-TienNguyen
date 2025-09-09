@@ -78,6 +78,17 @@ const handlePost = function( request, response ) {
       response.writeHead( 200, "OK", {"Content-Type": "text/plain" });
       response.end("Player deleted");
     }
+    else if (request.url === "/update") { //handle "update"
+      const data = JSON.parse(dataString);
+      const oldName = data.oldName;
+      const newName = data.newName;
+
+      //find the player
+      const playerToUpdate = scoreData.find(player => player.name === oldName);
+      playerToUpdate.name = newName; // update that player's name
+      response.writeHead('200', "OK", {"Content-Type":"text/plain"});
+      response.end("Player updated successfully");
+    }
   })
 }
 

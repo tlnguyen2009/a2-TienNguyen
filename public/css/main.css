@@ -84,7 +84,7 @@ input {
 }
 
 .ranking-section {
-  display: none;
+  display: flex;
   text-align: center;
   flex-direction: column;
   gap: 0.5rem;
@@ -138,4 +138,9 @@ button:active {
 #cockroach:active {
   /*"squish" effect when clicked */
   transform: scale(0.95);
+}
+
+th, td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #3a3a3a;
 }

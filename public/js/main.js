@@ -23,7 +23,7 @@
 
 window.onload = function() { //onload means when the page finish loading all HTML, it will run this function
   //Constant
-  const COUNT_DOWN = 30;
+  const COUNT_DOWN = 5;
 
   //Variables
   let score = 0;
@@ -189,20 +189,70 @@ window.onload = function() { //onload means when the page finish loading all HTM
       //fill row element with <td>
       row.innerHTML = `
         <td>${index + 1}</td>
-        <td>${thisPlayer.name}</td>
+        <td class="player-name-cell"><span class="player-name">${thisPlayer.name}</span></td>
         <td>${thisPlayer.score}</td>
       `
-      //create a delete button for each row of data table (each player)
       const cell = document.createElement('td');
+      //create edit button
+      const editButton = document.createElement('button');
+      editButton.textContent = "Edit";
+      editButton.className = "edit-button";
+      editButton.onclick = () => {makeNameEditable(row, thisPlayer.name)}; // row is this row
+
+      //create a delete button for each row of data table (each player)
       const deleteButton = document.createElement('button');
       deleteButton.textContent = "Delete"; //add text
       deleteButton.className = "delete-button"; //add class
       deleteButton.onclick = () => {deletePlayer(thisPlayer.name)};
-
+      
+      cell.appendChild(editButton);
       cell.appendChild(deleteButton);
       row.appendChild(cell);
       scoreboardBody.appendChild(row);
     });
+  }
+
+  // edit name then request to change
+  const makeNameEditable = function (row, oldName) {
+    alert("ONLY 'Name' allowed to edit. Hit 'ENTER' to save changes!"); //Send an alert to tell user how to save change
+
+    const nameCell = row.querySelector('.player-name-cell');
+    const nameSpan = row.querySelector('.player-name');
+
+    const input = document.createElement('input');
+    input.type = "text";
+    input.value = oldName; //this will be new name later when user type in 
+    input.className = "edit-input"; //for styling later
+
+    //Listen to "Enter" key
+    input.addEventListener('keydown', (event)=>{
+      if(event.key === 'Enter') {
+        event.preventDefault(); // Stop default form submission
+        saveNewName(oldName, input.value); // function to process new and old name (save in BACK-END)
+      }
+    })
+
+    nameSpan.replaceWith(input); //replace the <span> with the <input> (input) when it hears "click"
+    input.focus(); //make the cursor focus inside the <input>
+  }
+
+  const saveNewName = async function (oldName, newName) {
+    if(oldName === newName || !newName) { //if newName is the same as oldName and newName is blank
+      fetchAndDisplayRanking(); //just reload the page, no need for "await" here because we don't load any data from backend
+      return;
+    }
+
+    try {
+      await fetch('/update', {
+        method: 'POST',
+        headers: {'Content-Type' : 'application/json'},
+        body: JSON.stringify({oldName: oldName, newName: newName})
+      });
+    } catch (err) {
+      console.error("somthing wrong with update input name", err);
+    }
+
+    await fetchAndDisplayRanking(); //refresh the table
   }
 
   // request to Delete a player to server
