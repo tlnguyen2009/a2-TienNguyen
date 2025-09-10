@@ -1,8 +1,9 @@
 {
-  "name": "",
-  "version": "",
-  "description": "",
-  "author": "",
+  "name": "cockroach-squish-game",
+  "version": "1.0.0",
+  "description": "Clicking to kill the cockroach",
+  "author": "Tien Nguyen",
+  "main": "server.improved.js",
   "scripts": {
     "start": "node server.improved.js"
   },

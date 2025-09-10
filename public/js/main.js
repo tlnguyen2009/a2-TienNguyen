@@ -23,7 +23,7 @@
 
 window.onload = function() { //onload means when the page finish loading all HTML, it will run this function
   //Constant
-  const COUNT_DOWN = 5;
+  const COUNT_DOWN = 10;
 
   //Variables
   let score = 0;
