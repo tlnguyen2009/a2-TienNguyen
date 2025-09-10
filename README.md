@@ -8,7 +8,19 @@ You just need to follow instruction/button on screen to play this game. You clic
 
 ### Design/Evaluation Achievements
 - **Design Achievement 1**: 
-Set of question to ask peers to check app's UI:
+Peer Review for my Game App
+1/ Benedict Antwi (bantwi@wpi.edu):
+- With my previous design, the user couldn't expect what will happen in my game and how to play it. 
+
+- He recommended me to leave a small instruction at the first page so the users can know what they should do when they hit "play" button. And surprisingly, it was the same thing I was thinking about too but not sure if it's needed, however, thanks to my friend feedback, I know we need that.
+
+- I created a small instruction at the main page.
+
+
+
+
+My app is deployed at https://cockroach-squish.onrender.com/
+
 
 You'll need to use sometype of collaborative software that will enable you both to see the test subject's screen and listen to their voice as they describe their thoughts, or conduct the studies in person. After completing each study, briefly (one to two sentences for each question) address the following in your README:
 
