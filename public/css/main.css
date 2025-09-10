@@ -69,6 +69,7 @@ input {
 
 .first-section {
   display: flex;
+  flex-direction: column;
 }
 
 .last-section {
@@ -111,6 +112,18 @@ button {
 button:active {
   transform: translateY(2px);
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.4); 
+}
+
+.instruction {
+  margin-bottom: 2rem;
+  width: 40rem;
+}
+
+.instruction > h2 {
+  font-family: "Slackey", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  text-align: center;
 }
 
 .time-and-scores{
