@@ -16,15 +16,12 @@ Peer Review for my Game App
 
 - I created a small instruction at the main page.
 
+2/ Rohit Tallapragada
+- He thinks my background color could look better if the background color was different from plain black, maybe a super dark green.
 
+- Making all the text font the same as the font at the main page will make them look cool.
 
+- Get an Adobe color scheme pack and use it for buttons, background,...
 
 My app is deployed at https://cockroach-squish.onrender.com/
 
-
-You'll need to use sometype of collaborative software that will enable you both to see the test subject's screen and listen to their voice as they describe their thoughts, or conduct the studies in person. After completing each study, briefly (one to two sentences for each question) address the following in your README:
-
-1. Provide the last name of each student you conduct the evaluation with.
-2. What problems did the user have with your design?
-3. What comments did they make that surprised you?
-4. What would you change about the interface based on their feedback?
